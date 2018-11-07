@@ -2,6 +2,11 @@
     "name": "dsantang/domain-events",
     "description": "A simple package that enables the creation and dispatching of domain events.",
     "type": "library",
+    "keywords": [
+        "domain event",
+        "domain driven design",
+        "dispatcher"
+    ],
     "authors": [
         {
             "name": "Davide Santangelo"
@@ -22,7 +27,7 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": "7.2"
+        "php": "^7.2"
     },
     "require-dev": {
         "doctrine/coding-standard": "^5.0",
