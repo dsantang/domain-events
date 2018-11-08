@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/dsantang/domain-events/tree/master.svg?style=svg)](https://circleci.com/gh/dsantang/domain-events/tree/master)
+
 # Domain Events
 
 A simple package that guides the creation and dispatching of domain events.
