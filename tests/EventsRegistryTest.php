@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Dsantang\DomainEvents\Tests;
@@ -8,6 +9,9 @@ use Dsantang\DomainEvents\EventAware;
 use Dsantang\DomainEvents\Registry\EventsRegistry;
 use Dsantang\DomainEvents\Registry\IncompatibleClass;
 use PHPUnit\Framework\TestCase;
+use function assert;
+use function current;
+use function method_exists;
 
 final class EventsRegistryTest extends TestCase
 {
@@ -16,7 +20,7 @@ final class EventsRegistryTest extends TestCase
     /**
      * @test
      */
-    public function triggeringADomainEventFromAnIncompatibleClassThrowsAnException(): void
+    public function triggeringADomainEventFromAnIncompatibleClassThrowsAnException() : void
     {
         $this->expectException(IncompatibleClass::class);
 
@@ -26,7 +30,7 @@ final class EventsRegistryTest extends TestCase
     /**
      * @test
      */
-    public function triggeringADomainEventRecordsItInMemory(): EventAware
+    public function triggeringADomainEventRecordsItInMemory() : EventAware
     {
         $event = self::generateEvent();
 
@@ -48,10 +52,9 @@ final class EventsRegistryTest extends TestCase
 
     /**
      * @depends triggeringADomainEventRecordsItInMemory
-     *
      * @test
      */
-    public function expellingTheDomainEventsReturnsThemAndEmptiesTheRegister(EventAware $aggregate): EventAware
+    public function expellingTheDomainEventsReturnsThemAndEmptiesTheRegister(EventAware $aggregate) : EventAware
     {
         $triggeredEvents = $aggregate->expelRecordedEvents();
 
@@ -64,10 +67,9 @@ final class EventsRegistryTest extends TestCase
 
     /**
      * @depends expellingTheDomainEventsReturnsThemAndEmptiesTheRegister
-     *
      * @test
      */
-    public function expellingTheDomainEventsReturnsAnEmptyArrayIfNoEventsHaveBeenTriggered(EventAware $aggregate): void
+    public function expellingTheDomainEventsReturnsAnEmptyArrayIfNoEventsHaveBeenTriggered(EventAware $aggregate) : void
     {
         $triggeredEvents = $aggregate->expelRecordedEvents();
 
@@ -78,7 +80,7 @@ final class EventsRegistryTest extends TestCase
     /**
      * @test
      */
-    public function expellingTheDomainEventsFromAnIncompatibleClassThrowsAnException()
+    public function expellingTheDomainEventsFromAnIncompatibleClassThrowsAnException() : void
     {
         $this->expectException(IncompatibleClass::class);
 
@@ -89,21 +91,18 @@ final class EventsRegistryTest extends TestCase
         $incompatibleClass->expelRecordedEvents();
     }
 
-    /**
-     * @return DomainEvent
-     */
-    private static function generateEvent(): DomainEvent
+    private static function generateEvent() : DomainEvent
     {
         return new class implements DomainEvent
         {
-            public function getName(): string
+            public function getName() : string
             {
                 return 'domain event name';
             }
         };
     }
 
-    private function instantiateAnIncompatibleClass(bool $triggeringTheEvent = false): object
+    private function instantiateAnIncompatibleClass(bool $triggeringTheEvent = false) : object
     {
         return new class (self::generateEvent(), $triggeringTheEvent)
         {
