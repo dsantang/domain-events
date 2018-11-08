@@ -1,9 +1,6 @@
 # set all to phony tail
 .PHONY: *
 
-SET_ENV = env $$(cat .env.dist | sed -e 's/MODE=dev/MODE=test/' | xargs)
-CI_COMPOSER_FLAGS =-n -a
-
 all: install cs-fix cs-check test ## Runs everything
 
 test: test-unit test-mutation ## Runs all test suite
