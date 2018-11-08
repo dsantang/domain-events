@@ -1,0 +1,38 @@
+Escaped mutants:
+================
+
+
+1) /Users/davide/Projects/domain-events/src/Registry/EventsRegistry.php:20    [M] IdenticalEqual
+
+--- Original
++++ New
+@@ @@
+      */
+     public function expelRecordedEvents() : array
+     {
+-        if ($this instanceof EventAware === false) {
++        if ($this instanceof EventAware == false) {
+             throw IncompatibleClass::forExpellingEvents($this);
+         }
+         $recordedEvents = $this->recordedEvents;
+
+
+2) /Users/davide/Projects/domain-events/src/Registry/EventsRegistry.php:33    [M] IdenticalEqual
+
+--- Original
++++ New
+@@ @@
+     }
+     private function triggeredA(DomainEvent $event) : void
+     {
+-        if ($this instanceof EventAware === false) {
++        if ($this instanceof EventAware == false) {
+             throw IncompatibleClass::forTriggeringEvents($this);
+         }
+         $this->recordedEvents[] = $event;
+     }
+Timed Out mutants:
+==================
+
+Not Covered mutants:
+====================
