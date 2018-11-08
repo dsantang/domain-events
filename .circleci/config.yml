@@ -10,6 +10,7 @@ workflows:
             - unit-tests
       - phpstan
       - phpcs
+      - phpstan
 
 jobs:
   unit-tests:
@@ -78,6 +79,8 @@ jobs:
           key: composer-cache
           paths:
             - ~/.composer/cache
+      - run: make static-analysis
+
   phpcs:
     docker:
       - image: circleci/php:7.2
