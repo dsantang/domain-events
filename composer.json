@@ -1,6 +1,6 @@
 {
     "name": "dsantang/domain-events",
-    "description": "A simple package that enables the creation and dispatching of domain events.",
+    "description": "A simple package that enables creation and caching of domain events.",
     "type": "library",
     "keywords": [
         "domain event",
@@ -28,6 +28,9 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.2"
+    },
+    "suggest": {
+        "dsantang/domain-events-doctrine": "To automatically dispatch and listen to this package's domain events when a doctrine transaction is finished."
     },
     "require-dev": {
         "doctrine/coding-standard": "^5.0",
