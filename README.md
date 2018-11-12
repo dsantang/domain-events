@@ -63,12 +63,13 @@ final class OrderSent implements DomainEvent
 }
 ```
 
-Domain events can, and should be momentarily cached in your aggregate waiting until the transaction is completed.
+Domain events can, and should, be momentarily cached in your aggregate, waiting until the transaction is completed.
 Once the transaction is finished, and your aggregate state has **correctly been persisted** in your data storage,
 the domain events that have occurred should be properly dealt with by your application.
 
-In order to momentarily **cache/retrieve those events in your aggregate**, you can rely upon the simple: `EventsRegistry` trait,
-which is provided by this library.
+In order to momentarily **cache/retrieve those events in your aggregate**, you can rely upon the simple `EventsRegistry` trait 
+provided by this library.
+
 Example:
 
 ```php
@@ -98,7 +99,7 @@ final class Order implements EventAware
 Since every application has its own way of persisting the state of aggregates,
 **this library doesn't provide an automated way to dispatch those events**, and it's up to the implementor to do that.
 
-Although, for those using `Doctrine`'s ORM, you can rely upon an [out of the box event dispatching automation](https://github.com/dsantang/domain-events-doctrine),
+Those using `Doctrine`'s ORM can rely upon an [out of the box event dispatching automation](https://github.com/dsantang/domain-events-doctrine),
 which only kicks in once a Doctrine's transaction is completed.
 The package name is:
 
