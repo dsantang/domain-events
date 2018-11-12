@@ -3,6 +3,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/build-status/master)
+[![SymfonyInsight](https://insight.symfony.com/projects/d2302e70-4903-4ec7-aedd-3ea8bc71d217/small.svg)](https://insight.symfony.com/projects/d2302e70-4903-4ec7-aedd-3ea8bc71d217)
 
 A simple package that guides the creation and dispatching of domain events.
 
@@ -67,7 +68,7 @@ Domain events can, and should, be momentarily cached in your aggregate, waiting 
 Once the transaction is finished, and your aggregate state has **correctly been persisted** in your data storage,
 the domain events that have occurred should be properly dealt with by your application.
 
-In order to momentarily **cache/retrieve those events in your aggregate**, you can rely upon the simple `EventsRegistry` trait 
+In order to momentarily **cache/retrieve those events in your aggregate**, you can rely upon the simple `EventsRegistry` trait
 provided by this library.
 
 Example:
