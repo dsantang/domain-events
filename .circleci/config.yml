@@ -10,7 +10,6 @@ workflows:
             - unit-tests
       - phpstan
       - phpcs
-      - phpstan
 
 jobs:
   unit-tests:
