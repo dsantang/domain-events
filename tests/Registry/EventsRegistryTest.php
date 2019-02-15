@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dsantang\DomainEvents\Tests;
+namespace Dsantang\DomainEvents\Tests\Registry;
 
 use Dsantang\DomainEvents\DomainEvent;
 use Dsantang\DomainEvents\EventAware;
