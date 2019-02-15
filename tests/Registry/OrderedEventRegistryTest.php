@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Dsantang\DomainEvents\Tests;
+namespace Dsantang\DomainEvents\Tests\Registry;
 
+use Dsantang\DomainEvents\Counter;
 use Dsantang\DomainEvents\DomainEvent;
 use Dsantang\DomainEvents\EventAware;
-use Dsantang\DomainEvents\Registry\EventsRegistry;
 use Dsantang\DomainEvents\Registry\IncompatibleClass;
+use Dsantang\DomainEvents\Registry\OrderedEventRegistry;
 use PHPUnit\Framework\TestCase;
 use function assert;
 use function current;
 use function method_exists;
 
-final class EventsRegistryTest extends TestCase
+final class OrderedEventRegistryTest extends TestCase
 {
     private const RECORDED_EVENTS_ATTRIBUTE = 'recordedEvents';
 
@@ -35,7 +36,7 @@ final class EventsRegistryTest extends TestCase
         $event = self::generateEvent();
 
         $aggregate = new class ($event) implements EventAware {
-            use EventsRegistry;
+            use OrderedEventRegistry;
 
             public function __construct(DomainEvent $domainEvent)
             {
@@ -46,6 +47,7 @@ final class EventsRegistryTest extends TestCase
         };
 
         self::assertAttributeContains($event, self::RECORDED_EVENTS_ATTRIBUTE, $aggregate);
+        self::assertEquals(2, Counter::getNext());
 
         return $aggregate;
     }
@@ -106,7 +108,7 @@ final class EventsRegistryTest extends TestCase
     {
         return new class (self::generateEvent(), $triggeringTheEvent)
         {
-            use EventsRegistry;
+            use OrderedEventRegistry;
 
             public function __construct(DomainEvent $domainEvent, bool $triggeringTheEvent)
             {
