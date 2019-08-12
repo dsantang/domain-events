@@ -27,7 +27,7 @@ An example of a domain event is as follows:
 
 use Dsantang\DomainEvents\DomainEvent;
 
-final class OrderSent implements DomainEvent
+final class OrderSent implements DomainEvent, DeletionAware
 {
     public const EVENT_NAME = 'order-sent';
 
@@ -59,11 +59,23 @@ final class OrderSent implements DomainEvent
     {
         return self::EVENT_NAME;
     }
+    
+    public function expelDeletionEvents(): DomainEvent
+    {
+        return new OrderDeleted();
+    }
 
     // ...
 }
 ```
+### Aggregate deletions
 
+Sometimes the deletion of an aggregate is a relevant event too. In this case tho, the aggregate cannot throw the event 
+itself since it is most likely being deleted by your ORM.   
+To work around this problem, you can implement the `DeletionAware` interface to signal your ORM that the deletion of that
+aggregate should raise an event.
+
+## Using transactions
 Domain events can, and should, be momentarily cached in your aggregate, waiting until the transaction is completed.
 Once the transaction is finished, and your aggregate state has **correctly been persisted** in your data storage,
 the domain events that have occurred should be properly dealt with by your application.
