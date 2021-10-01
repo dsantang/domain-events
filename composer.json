@@ -27,7 +27,7 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": "^7.2"
+        "php": "^7.2 || ^8.0"
     },
     "suggest": {
         "dsantang/domain-events-doctrine": "To automatically dispatch and listen to this package's domain events when a doctrine transaction is finished."
