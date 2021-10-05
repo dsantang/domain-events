@@ -14,7 +14,7 @@ workflows:
 jobs:
   unit-tests:
     docker:
-      - image: circleci/php:7.2
+      - image: circleci/php:7.4
     steps:
       - run: sudo composer self-update
       - checkout
@@ -40,7 +40,7 @@ jobs:
 
   mutation-tests:
     docker:
-      - image: circleci/php:7.2
+      - image: circleci/php:7.4
     steps:
       - run: sudo composer self-update
       - checkout
@@ -61,7 +61,7 @@ jobs:
 
   phpstan:
     docker:
-      - image: circleci/php:7.2
+      - image: circleci/php:7.4
     steps:
       - run: sudo composer self-update
       - checkout
@@ -82,7 +82,7 @@ jobs:
 
   phpcs:
     docker:
-      - image: circleci/php:7.2
+      - image: circleci/php:7.4
     steps:
       - run: sudo composer self-update
       - checkout

@@ -9,5 +9,5 @@ interface EventAware
     /**
      * @return DomainEvent[]
      */
-    public function expelRecordedEvents() : array;
+    public function expelRecordedEvents(): array;
 }

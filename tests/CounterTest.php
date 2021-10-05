@@ -12,8 +12,9 @@ final class CounterTest extends TestCase
     /**
      * @test
      */
-    public function getNextReturnsIncreasingIntegers() : void
+    public function getNextReturnsIncreasingIntegers(): void
     {
+        Counter::reset();
         self::assertEquals(0, Counter::getNext());
         self::assertEquals(1, Counter::getNext());
         self::assertEquals(2, Counter::getNext());
@@ -22,7 +23,7 @@ final class CounterTest extends TestCase
     /**
      * @test
      */
-    public function resetSetsTheCounterAt0() : void
+    public function resetSetsTheCounterAt0(): void
     {
         Counter::getNext();
         Counter::reset();

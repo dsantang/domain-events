@@ -6,5 +6,5 @@ namespace Dsantang\DomainEvents;
 
 interface DomainEvent
 {
-    public function getName() : string;
+    public function getName(): string;
 }
