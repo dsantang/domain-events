@@ -12,6 +12,9 @@
             "name": "Davide Santangelo"
         }
     ],
+    "license": [
+        "MIT"
+    ],
     "autoload": {
         "psr-4": {
             "Dsantang\\DomainEvents\\": "src"

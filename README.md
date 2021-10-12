@@ -1,4 +1,5 @@
 # Domain Events
+![CI workflow](https://github.com/dsantang/domain-events/actions/workflows/ci.yml/badge.svg)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/build-status/master)
