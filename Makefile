@@ -18,7 +18,7 @@ cs-check: ## Runs phpcs
 	vendor/bin/phpcs
 
 static-analysis: ## Runs static analysis with phpstan
-	vendor/bin/phpstan analyse -a tests/container.php
+	vendor/bin/phpstan analyse
 
 install-ci: ## Install dependencies with composer with flags -a -n
 	composer install $(CI_COMPOSER_FLAGS)

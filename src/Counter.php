@@ -6,15 +6,14 @@ namespace Dsantang\DomainEvents;
 
 final class Counter
 {
-    /** @var int */
-    private static $count = 0;
+    private static int $count = 0;
 
-    public static function getNext() : int
+    public static function getNext(): int
     {
         return self::$count++;
     }
 
-    public static function reset() : void
+    public static function reset(): void
     {
         self::$count = 0;
     }

@@ -11,14 +11,14 @@ use Dsantang\DomainEvents\EventAware;
 trait OrderedEventRegistry
 {
     /** @var DomainEvent[] */
-    private $recordedEvents = [];
+    private array $recordedEvents = [];
 
     /**
      * @return DomainEvent[]
      *
      * @throws IncompatibleClass
      */
-    public function expelRecordedEvents() : array
+    public function expelRecordedEvents(): array
     {
         if ($this instanceof EventAware === false) {
             throw IncompatibleClass::forExpellingEvents($this);
@@ -34,7 +34,7 @@ trait OrderedEventRegistry
     /**
      * @throws IncompatibleClass
      */
-    private function triggeredA(DomainEvent $event) : void
+    private function triggeredA(DomainEvent $event): void
     {
         if ($this instanceof EventAware === false) {
             throw IncompatibleClass::forTriggeringEvents($this);

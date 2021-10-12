@@ -10,12 +10,12 @@ use Dsantang\DomainEvents\EventAware;
 trait EventsRegistry
 {
     /** @var DomainEvent[] */
-    private $recordedEvents = [];
+    private array $recordedEvents = [];
 
     /**
      * @return DomainEvent[]
      */
-    public function expelRecordedEvents() : array
+    public function expelRecordedEvents(): array
     {
         if ($this instanceof EventAware === false) {
             throw IncompatibleClass::forExpellingEvents($this);
@@ -28,7 +28,7 @@ trait EventsRegistry
         return $recordedEvents;
     }
 
-    private function triggeredA(DomainEvent $event) : void
+    private function triggeredA(DomainEvent $event): void
     {
         if ($this instanceof EventAware === false) {
             throw IncompatibleClass::forTriggeringEvents($this);

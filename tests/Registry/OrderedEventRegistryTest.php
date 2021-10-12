@@ -10,18 +10,25 @@ use Dsantang\DomainEvents\EventAware;
 use Dsantang\DomainEvents\Registry\IncompatibleClass;
 use Dsantang\DomainEvents\Registry\OrderedEventRegistry;
 use PHPUnit\Framework\TestCase;
+
 use function assert;
 use function current;
 use function method_exists;
 
 final class OrderedEventRegistryTest extends TestCase
 {
-    private const RECORDED_EVENTS_ATTRIBUTE = 'recordedEvents';
+    /**
+     * @before
+     */
+    public function setUpDependencies(): void
+    {
+        Counter::reset();
+    }
 
     /**
      * @test
      */
-    public function triggeringADomainEventFromAnIncompatibleClassThrowsAnException() : void
+    public function triggeringADomainEventFromAnIncompatibleClassThrowsAnException(): void
     {
         $this->expectException(IncompatibleClass::class);
 
@@ -31,7 +38,40 @@ final class OrderedEventRegistryTest extends TestCase
     /**
      * @test
      */
-    public function triggeringADomainEventRecordsItInMemory() : EventAware
+    public function triggeringADomainEventRecordsItInMemory(): void
+    {
+        $event = self::generateEvent();
+
+        $aggregate = new class ($event) implements EventAware {
+            use OrderedEventRegistry;
+
+            private DomainEvent $domainEvent;
+
+            public function __construct(DomainEvent $domainEvent)
+            {
+                $this->domainEvent = $domainEvent;
+                $this->triggeredA(
+                    $domainEvent
+                );
+            }
+
+            public function trigger(): void
+            {
+                $this->triggeredA($this->domainEvent);
+            }
+        };
+
+        $aggregate->trigger();
+        $triggeredEvents = $aggregate->expelRecordedEvents();
+        self::assertCount(2, $triggeredEvents);
+        self::assertSame($event, current($triggeredEvents));
+        self::assertEmpty($aggregate->expelRecordedEvents());
+    }
+
+    /**
+     * @test
+     */
+    public function expellingTheDomainEventsReturnsThemAndEmptiesTheRegister(): void
     {
         $event = self::generateEvent();
 
@@ -46,43 +86,27 @@ final class OrderedEventRegistryTest extends TestCase
             }
         };
 
-        self::assertAttributeContains($event, self::RECORDED_EVENTS_ATTRIBUTE, $aggregate);
-        self::assertEquals(2, Counter::getNext());
-
-        return $aggregate;
-    }
-
-    /**
-     * @depends triggeringADomainEventRecordsItInMemory
-     * @test
-     */
-    public function expellingTheDomainEventsReturnsThemAndEmptiesTheRegister(EventAware $aggregate) : EventAware
-    {
         $triggeredEvents = $aggregate->expelRecordedEvents();
-
         self::assertCount(1, $triggeredEvents);
-        self::assertEquals(current($triggeredEvents), self::generateEvent());
-        self::assertAttributeEquals([], self::RECORDED_EVENTS_ATTRIBUTE, $aggregate);
-
-        return $aggregate;
+        self::assertEmpty($aggregate->expelRecordedEvents());
     }
 
     /**
-     * @depends expellingTheDomainEventsReturnsThemAndEmptiesTheRegister
      * @test
      */
-    public function expellingTheDomainEventsReturnsAnEmptyArrayIfNoEventsHaveBeenTriggered(EventAware $aggregate) : void
+    public function expellingTheDomainEventsReturnsAnEmptyArrayIfNoEventsHaveBeenTriggered(): void
     {
-        $triggeredEvents = $aggregate->expelRecordedEvents();
+        $aggregate = new class implements EventAware {
+            use OrderedEventRegistry;
+        };
 
-        self::assertCount(0, $triggeredEvents);
-        self::assertAttributeEquals([], self::RECORDED_EVENTS_ATTRIBUTE, $aggregate);
+        self::assertEmpty($aggregate->expelRecordedEvents());
     }
 
     /**
      * @test
      */
-    public function expellingTheDomainEventsFromAnIncompatibleClassThrowsAnException() : void
+    public function expellingTheDomainEventsFromAnIncompatibleClassThrowsAnException(): void
     {
         $this->expectException(IncompatibleClass::class);
 
@@ -93,18 +117,18 @@ final class OrderedEventRegistryTest extends TestCase
         $incompatibleClass->expelRecordedEvents();
     }
 
-    private static function generateEvent() : DomainEvent
+    private static function generateEvent(): DomainEvent
     {
         return new class implements DomainEvent
         {
-            public function getName() : string
+            public function getName(): string
             {
                 return 'domain event name';
             }
         };
     }
 
-    private function instantiateAnIncompatibleClass(bool $triggeringTheEvent = false) : object
+    private function instantiateAnIncompatibleClass(bool $triggeringTheEvent = false): object
     {
         return new class (self::generateEvent(), $triggeringTheEvent)
         {

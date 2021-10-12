@@ -6,5 +6,5 @@ namespace Dsantang\DomainEvents;
 
 interface DeletionAware
 {
-    public function expelDeletionEvents() : DomainEvent;
+    public function expelDeletionEvents(): DomainEvent;
 }
