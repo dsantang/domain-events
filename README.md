@@ -1,9 +1,7 @@
 # Domain Events
-[![CircleCI](https://circleci.com/gh/dsantang/domain-events/tree/master.svg?style=svg)](https://circleci.com/gh/dsantang/domain-events/tree/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/dsantang/domain-events/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dsantang/domain-events/build-status/master)
-[![SymfonyInsight](https://insight.symfony.com/projects/d2302e70-4903-4ec7-aedd-3ea8bc71d217/small.svg)](https://insight.symfony.com/projects/d2302e70-4903-4ec7-aedd-3ea8bc71d217)
 
 A simple package that guides the creation and dispatching of domain events.
 
